@@ -3,6 +3,7 @@
   "version": "1.0.1",
   "description": "Hot module replacement for Node.js",
   "main": "index.ts",
+  "types": "index.d.ts",
   "scripts": {
     "test": "mocha -t 5000 ./test/integration/*.js"
   },

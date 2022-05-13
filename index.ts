@@ -1,5 +1,6 @@
 // declare const Module: any
 declare const module: any
+import { UseHotRequire, UseHotRequireReturn } from './types/index.d'
 
 const Module = require('module')
 import addHMRHooks from './methods/addHMRHooks'
@@ -57,7 +58,7 @@ export default (options: Options = {}) => {
                 givenCallbacks.push(hotAcceptCallback)
             },
         }
-        console.log('fullPathRequiredFile:', fullPathRequiredFile)
+        // console.log('fullPathRequiredFile:', fullPathRequiredFile)
 
         module.hot.accept(fullPathRequiredFile, async () => {
             let resolveModulePromise: any = null

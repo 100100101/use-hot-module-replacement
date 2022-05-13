@@ -16,12 +16,27 @@ This module tries to mimic [webpack HMR](https://webpack.js.org/api/hot-module-r
   git clone https://github.com/JSerGit/use-hot-module-replacement.git
 ```
 
+Add to your-project-root/package.json
+
+```
+{
+  ...
+  "dependencies": {
+    ...
+    "use-hot-module-replacement": "link:utils/use-hot-module-replacement"
+    ...
+  },
+  ...
+}
+```
+
 ## Usage
 
 Put this code somewhere in your code to initialise hot reload
 
 ```js
-require('use-hot-module-replacement')({
+import useHotModuleReplacement from 'use-hot-module-replacement'
+useHotModuleReplacement({
     // options are optional
     ignore: /node_modules/, // regexp to decide if module should be ignored; also can be a function accepting string and returning true/false
     doubleSaveDiscardMs: 500, // default 500

@@ -1,5 +1,8 @@
 ## Based on https://github.com/sidorares/hot-module-replacement
 
+-   Module rewritten in TypeScript
+-   If you save the file twice within 500ms, the reboot will be cancelled. This is done so that you can run prettier without rebooting.
+
 # hot-module-replacement
 
 Hot module replacement for Node.js
@@ -9,7 +12,8 @@ This module tries to mimic [webpack HMR](https://webpack.js.org/api/hot-module-r
 ## Installation
 
 ```js
-  npm install --save-dev hot-module-replacement
+  cd your-project-root/utils
+  git clone https://github.com/JSerGit/use-hot-module-replacement.git
 ```
 
 ## Usage
@@ -20,6 +24,7 @@ Put this code somewhere in your code to initialise hot reload
 require('use-hot-module-replacement')({
     // options are optional
     ignore: /node_modules/, // regexp to decide if module should be ignored; also can be a function accepting string and returning true/false
+    doubleSaveDiscardMs: 500, // default 500
 })
 ```
 

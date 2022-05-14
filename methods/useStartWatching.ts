@@ -1,23 +1,42 @@
 import nodeWatch from 'node-watch'
 const Module = require('module')
+const triggeredFilenames: string[] = []
+let isDiscard = false
 export default ({
         watching,
         collectDependencies,
         ignore,
         addHMRHooks,
         parents,
+        doubleSaveDiscardMs,
     }) =>
     path => {
-        if (ignore(path)) {
-            return
-        }
-        if (watching[path]) {
-            return
-        }
+        if (ignore(path)) return
+        if (watching[path]) return
         watching[path] = nodeWatch(
             path,
             { persistent: false },
             async (eventType, filename) => {
+                if (doubleSaveDiscardMs > -1) {
+                    if (triggeredFilenames.includes(filename)) {
+                        isDiscard = true
+                        return
+                    }
+                    triggeredFilenames.push(filename)
+                    await new Promise(resolve =>
+                        setTimeout(resolve, doubleSaveDiscardMs)
+                    )
+                    triggeredFilenames.splice(
+                        triggeredFilenames.indexOf(filename),
+                        1
+                    )
+                    if (triggeredFilenames.length) return
+                    if (isDiscard) {
+                        isDiscard = false
+                        return
+                    }
+                }
+
                 const oldModule = require.cache[path]
                 const deps = oldModule ? collectDependencies(oldModule) : []
                 const reloaded = {}
@@ -44,13 +63,11 @@ export default ({
                             const ps = parents[path]
                             for (const parentPath in ps) {
                                 const parent: any = require.cache[parentPath]
-                                if (parent.hot._acceptedDependencies[path]) {
-                                    // TODO: try/catch here?
-                                    parent.hot._acceptedDependencies[path](path)
-                                }
+                                // TODO: try/catch here?
+                                parent.hot._acceptedDependencies[path]?.(path)
                             }
                         } catch (e) {
-                            console.log(e)
+                            console.error(e)
                         }
                     }
                 }

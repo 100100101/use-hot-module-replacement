@@ -20,7 +20,6 @@ export default ({ ignore, parents, startWatching }) => {
                 myParents[parentPath] = parent
             }
         }
-        // console.log('load request:', request, parent, isMain, parents)
 
         return originalLoad(request, parent, isMain)
     }

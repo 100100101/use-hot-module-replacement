@@ -1,4 +1,3 @@
-// import isBuiltinModule from 'is-builtin-module'
 import checkIsBuiltinModule from './checkIsBuiltinModule'
 export default ignoreRule => path => {
     if (checkIsBuiltinModule(path)) {

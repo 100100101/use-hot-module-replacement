@@ -39,7 +39,7 @@ import useHotModuleReplacement from 'use-hot-module-replacement'
 useHotModuleReplacement({
     // options are optional
     ignore: /node_modules/, // regexp to decide if module should be ignored; also can be a function accepting string and returning true/false
-    doubleSaveDiscardMs: 500, // default 500
+    doubleSaveDiscardMs: 500, // default 500 / -1 - is disable
 })
 ```
 

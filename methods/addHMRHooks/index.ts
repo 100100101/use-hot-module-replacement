@@ -1,8 +1,8 @@
 import useAccept from './useAccept'
-import useAddDisposeHandler from './useAddDisposeHandler'
 import useDecline from './useDecline'
 import useDispose from './useDispose'
 import useRemoveDisposeHandler from './useRemoveDisposeHandler'
+import useRequireAccept from './useRequireAccept'
 const Module = require('module')
 export default module => {
     const resolve = name => {
@@ -39,15 +39,14 @@ export default module => {
           data: hotCurrentModuleData[moduleId]
         */
     }
+    const accept = useAccept({ hot, resolve })
     Object.assign(hot, {
-        accept: useAccept({ hot, resolve }),
+        accept,
         decline: useDecline({ hot, resolve }),
         dispose: useDispose({ hot }),
-        addDisposeHandler: useAddDisposeHandler({ hot }),
+        addDisposeHandler: useDispose({ hot }),
         removeDisposeHandler: useRemoveDisposeHandler({ hot }),
-        // requireAccept: () => {
-        //
-        // }
+        requireAccept: useRequireAccept({ accept }),
     })
     module.hot = hot
 }

@@ -14,6 +14,7 @@ export default parents => module => {
         }
         for (const next in requiredMe) {
             const parentHotRuntime = requiredMe[next].hot
+
             if (parentHotRuntime._acceptedDependencies[rootFilename]) {
                 paths.push(path.concat(rootFilename))
                 continue

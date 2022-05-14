@@ -1,8 +1,10 @@
+declare const module: any
 export declare namespace globalThis {
     interface NodeModule {
         hot: {
             active: any
             accept: any
+            requireAccept: any
             decline: any
             dispose: any
             addDisposeHandler: any
@@ -16,14 +18,10 @@ export declare namespace globalThis {
         }
     }
 }
-export type UseHotRequireReturn = {
-    value: any
-    // callback: (hotAcceptCallback: HotAcceptCallback) => HotAcceptCallback
-    callback: any
+export type UseHotModuleReplacementOptions = {
+    ignore?: RegExp | ((path: string) => void)
+    doubleSaveDiscardMs?: number | -1
 }
-export type UseHotRequire = (path: string) => UseHotRequireReturn
-export type HotAcceptCallback = (module: any) => void
-export declare const useHotRequire: UseHotRequire
 // export = globalThis
 // export default globalThis
 // export as namespace globalThis

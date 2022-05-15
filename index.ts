@@ -2,7 +2,7 @@
 declare const module: any
 import { UseHotModuleReplacementOptions } from './types/index.d'
 
-const Module = require('module')
+const Module = require('node:module')
 import addHMRHooks from './methods/addHMRHooks'
 import useCollectDependencies from './methods/useCollectDependencies'
 import useIgnore from './methods/useIgnore'
@@ -13,7 +13,7 @@ const defaultOptions = {
 }
 export default (options: UseHotModuleReplacementOptions) => {
     const settings = Object.assign(defaultOptions, options)
-    // TODO: use proxy here instead of just monkey-patching so all furure extensions are tracked automatically
+    // TODO: use proxy here instead of just monkey-patching so all future extensions are tracked automatically
     const savedExtensions = Module._extensions
     const _extensions = {}
     Object.keys(savedExtensions).forEach(extension => {

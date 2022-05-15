@@ -1,4 +1,4 @@
-const { builtinModules } = require('module')
+const { builtinModules } = require('node:module')
 const ignoreList = ['sys']
 const builtinModules2 = (
     builtinModules || Object.keys((process as any).binding('natives'))

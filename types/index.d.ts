@@ -1,5 +1,5 @@
 declare const module: any
-export declare namespace globalThis {
+declare namespace globalThis {
     interface NodeModule {
         hot: {
             active: any
@@ -22,6 +22,35 @@ export type UseHotModuleReplacementOptions = {
     ignore?: RegExp | ((path: string) => void)
     doubleSaveDiscardMs?: number | -1
 }
+type AcceptArgCallback = () => any
+type AcceptArgDep = any
+// interface Accept {
+//     foo: (dep: AcceptArgDep, callback: AcceptArgCallback) => void
+//     foo: (callback: AcceptArgCallback) => void
+// }
+export type Accept =
+    | ((dep: AcceptArgDep, callback: AcceptArgCallback) => void)
+    | ((callback: AcceptArgCallback) => void)
+export type Hot = {
+    _acceptedDependencies: object
+    _declinedDependencies: object
+    _selfAccepted: boolean
+    _selfDeclined: boolean
+    _disposeHandlers: (() => any)[]
+    _childDisposeDependencies: {
+        [key: string]: () => any
+    }
+    active: boolean
+    accept?: Accept
+    decline?: () => any
+    dispose?: () => any
+    addDisposeHandler?: () => any
+    removeDisposeHandler?: () => any
+    requireAccept?: () => any
+    addChildrenDisposeDependency?: (dep: string, handler: any) => any
+    [key: string]: any
+}
+
 // export = globalThis
 // export default globalThis
 // export as namespace globalThis

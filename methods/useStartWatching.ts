@@ -1,5 +1,6 @@
 import nodeWatch from 'node-watch'
-const Module = require('module')
+import { Hot } from 'use-hot-module-replacement/types'
+const Module = require('node:module')
 const triggeredFilenames: string[] = []
 let isDiscard = false
 export default ({
@@ -38,33 +39,61 @@ export default ({
                 }
 
                 const oldModule = require.cache[path]
-                const deps = oldModule ? collectDependencies(oldModule) : []
+                if (!oldModule) return
+                const deps = collectDependencies(oldModule)
                 const reloaded = {}
 
                 for (let d = 0; d < deps.length; ++d) {
                     for (let l = 0; l < deps[d].length; ++l) {
                         const path = deps[d][l]
+
                         if (reloaded[path]) {
                             continue
                         }
                         reloaded[path] = true
                         const oldModule: any = require.cache[path]
-                        const disposeHandlers = oldModule.hot._disposeHandlers
-                        if (disposeHandlers) {
-                            for (const disposeHandler of disposeHandlers) {
-                                await disposeHandler()
-                            }
+                        const oldModuleHot: Hot = oldModule.hot
+
+                        const disposeHandlers = oldModuleHot._disposeHandlers
+
+                        for (const disposeHandler of disposeHandlers) {
+                            await disposeHandler()
                         }
                         const newModule = new Module(path, oldModule.parent)
                         addHMRHooks(newModule)
+
                         try {
                             newModule.load(path)
                             require.cache[path] = newModule
-                            const ps = parents[path]
-                            for (const parentPath in ps) {
-                                const parent: any = require.cache[parentPath]
-                                // TODO: try/catch here?
-                                parent.hot._acceptedDependencies[path]?.(path)
+                            const parentAcceptedDependencies = parents[path]
+
+                            for (const parentPath in parentAcceptedDependencies) {
+                                const parentAcceptedModule: any =
+                                    require.cache[parentPath]
+
+                                const parentAcceptedModuleHot: Hot =
+                                    parentAcceptedModule.hot
+
+                                const childDisposeHandlers =
+                                    parentAcceptedModuleHot._childDisposeDependencies
+
+                                for (const childDisposeHandler of Object.values(
+                                    childDisposeHandlers
+                                )) {
+                                    if (
+                                        typeof childDisposeHandler ===
+                                        'function'
+                                    ) {
+                                        await childDisposeHandler()
+                                    }
+                                }
+                                parentAcceptedModuleHot._childDisposeDependencies =
+                                    {}
+
+                                const acceptedDependency =
+                                    parentAcceptedModuleHot
+                                        ._acceptedDependencies[path]
+                                acceptedDependency?.(path)
                             }
                         } catch (e) {
                             console.error(e)

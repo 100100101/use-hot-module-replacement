@@ -1,4 +1,4 @@
-const Module = require('module')
+const Module = require('node:module')
 export default ({ ignore, parents, startWatching }) => {
     const originalLoad = Module._load
 

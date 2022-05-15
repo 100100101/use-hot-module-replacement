@@ -1,6 +1,6 @@
 const assert = require('assert');
 const touch = require('touch');
-const path = require('path');
+const path = require('node:path');
 const fork = require('child_process').fork;
 
 describe('when one level dependency is updated', () => {

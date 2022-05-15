@@ -1,5 +1,6 @@
-export default ({ hot, resolve }) =>
-    (dep, callback: any) => {
+import { Accept } from 'use-hot-module-replacement/types'
+export default ({ hot, resolve }) => {
+    const accept: Accept = (dep, callback) => {
         if (typeof dep === 'undefined') hot._selfAccepted = true
         else if (typeof dep === 'function') hot._selfAccepted = dep
         else if (typeof dep === 'object')
@@ -16,3 +17,5 @@ export default ({ hot, resolve }) =>
                     //
                 }
     }
+    return accept
+}

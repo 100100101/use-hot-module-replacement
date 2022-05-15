@@ -1,4 +1,4 @@
-const Module = require('module')
+const Module = require('node:module')
 type RequireAcceptReturn = {
     value: any
     // callback: (hotAcceptCallback: HotAcceptCallback) => HotAcceptCallback

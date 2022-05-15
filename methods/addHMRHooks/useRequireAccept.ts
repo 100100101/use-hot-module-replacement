@@ -1,4 +1,4 @@
-const Module = require('module')
+const Module = require('node:module')
 type RequireAcceptReturn = {
     value: any
     // callback: (hotAcceptCallback: HotAcceptCallback) => HotAcceptCallback
@@ -7,7 +7,6 @@ type RequireAcceptReturn = {
 type RequireAccept = (path: string) => RequireAcceptReturn
 const useRequireAccept = ({ accept }) => {
     const requireAccept: RequireAccept = (path: string) => {
-        console.log('Module:', Module)
         const fullPathRequiredFile = Module._resolveFilename(path)
         const givenCallbacks: any[] = []
         // const currentModule

@@ -11,8 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-watch": "^0.7.3",
-    "use-hot-module-replacement": "link:./"
+    "node-watch": "^0.7.3"
   },
   "devDependencies": {
     "mocha": "^10.0.0",

@@ -1,5 +1,5 @@
 import nodeWatch from 'node-watch'
-import { Hot } from 'use-hot-module-replacement/types'
+import { Hot } from '../types'
 const Module = require('node:module')
 const triggeredFilenames: string[] = []
 let isDiscard = false

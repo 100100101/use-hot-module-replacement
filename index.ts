@@ -1,6 +1,7 @@
 // declare const Module: any
 declare const module: any
-import { UseHotModuleReplacementOptions } from './types/index.d'
+import './types'
+import { UseHotModuleReplacementOptions } from './types'
 
 const Module = require('node:module')
 import addHMRHooks from './methods/addHMRHooks'

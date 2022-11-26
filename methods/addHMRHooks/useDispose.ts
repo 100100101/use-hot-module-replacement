@@ -1,9 +1,9 @@
-import { Hot } from 'use-hot-module-replacement/types'
+import { THot } from '../../types'
 const findRootAcceptedModule = (module: any) => {
     const parentAcceptedModules: any[] = []
     let currentCheckModule = module
     for (;;) {
-        const moduleHot: Hot = currentCheckModule.hot
+        const moduleHot: THot = currentCheckModule.hot
         const moduleAcceptedDependencies = moduleHot._acceptedDependencies
         if (!moduleAcceptedDependencies) break
         const hasAcceptedDependencies = !!Object.keys(
@@ -23,7 +23,7 @@ const findRootAcceptedModule = (module: any) => {
 const setDisposeHandlerInParents = (module, handler) => {
     const rootAcceptedModule = findRootAcceptedModule(module)
     const moduleFilename: string = module.filename
-    const moduleHot: Hot = rootAcceptedModule.hot
+    const moduleHot: THot = rootAcceptedModule.hot
     moduleHot.addChildrenDisposeDependency?.(moduleFilename, handler)
 }
 export default ({ hot, module }) =>

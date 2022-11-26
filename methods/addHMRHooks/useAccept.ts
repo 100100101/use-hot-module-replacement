@@ -1,4 +1,4 @@
-import { Accept } from 'use-hot-module-replacement/types'
+import { Accept } from '../../types'
 export default ({ hot, resolve }) => {
     const accept: Accept = (dep, callback) => {
         if (typeof dep === 'undefined') hot._selfAccepted = true

@@ -4,13 +4,13 @@ import useDispose from './useDispose'
 import useRemoveDisposeHandler from './useRemoveDisposeHandler'
 import useRequireAccept from './useRequireAccept'
 import useAddChildrenDisposeDependency from './useAddChildrenDisposeDependency'
-import { Hot } from 'use-hot-module-replacement/types'
+import { THot } from '../../types'
 const Module = require('node:module')
 export default module => {
     const resolve = name => {
         return Module._resolveFilename(name, module)
     }
-    const hot: Hot = {
+    const hot: THot = {
         _acceptedDependencies: {},
         _declinedDependencies: {},
         _selfAccepted: false,
@@ -40,14 +40,13 @@ export default module => {
           //inherit from previous dispose call
           data: hotCurrentModuleData[moduleId]
         */
-    }
+    } as THot
     const accept = useAccept({ hot, resolve })
     const dispose = useDispose({ hot, module })
     Object.assign(hot, {
         accept,
         decline: useDecline({ hot, resolve }),
         dispose,
-        addDisposeHandler: dispose,
         removeDisposeHandler: useRemoveDisposeHandler({ hot }),
         requireAccept: useRequireAccept({ accept }),
         addChildrenDisposeDependency: useAddChildrenDisposeDependency({ hot }),

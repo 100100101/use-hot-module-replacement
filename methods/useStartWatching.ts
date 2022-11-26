@@ -1,5 +1,5 @@
 import nodeWatch from 'node-watch'
-import { Hot } from '../types'
+import { THot } from '../types'
 const Module = require('node:module')
 const triggeredFilenames: string[] = []
 let isDiscard = false
@@ -52,7 +52,7 @@ export default ({
                         }
                         reloaded[path] = true
                         const oldModule: any = require.cache[path]
-                        const oldModuleHot: Hot = oldModule.hot
+                        const oldModuleHot: THot = oldModule.hot
 
                         const disposeHandlers = oldModuleHot._disposeHandlers
 
@@ -71,7 +71,7 @@ export default ({
                                 const parentAcceptedModule: any =
                                     require.cache[parentPath]
 
-                                const parentAcceptedModuleHot: Hot =
+                                const parentAcceptedModuleHot: THot =
                                     parentAcceptedModule.hot
 
                                 const childDisposeHandlers =

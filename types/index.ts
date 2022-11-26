@@ -1,23 +1,6 @@
-declare const module: any
-declare namespace globalThis {
-    interface NodeModule {
-        hot: {
-            active: any
-            accept: any
-            requireAccept: any
-            decline: any
-            dispose: any
-            addDisposeHandler: any
-            removeDisposeHandler: any
-            _acceptedDependencies: any
-            _declinedDependencies: any
-            _selfAccepted: any
-            _selfDeclined: any
-            _disposeHandlers: any
-            [key: string]: any
-        }
-    }
-}
+export type TAcceptCallback = () => void
+export type TAccept = (modulePath: string, callback: TAcceptCallback) => void
+export type TDispose = () => void
 export type UseHotModuleReplacementOptions = {
     ignore?: RegExp | ((path: string) => void)
     doubleSaveDiscardMs?: number | -1
@@ -31,7 +14,7 @@ type AcceptArgDep = any
 export type Accept =
     | ((dep: AcceptArgDep, callback: AcceptArgCallback) => void)
     | ((callback: AcceptArgCallback) => void)
-export type Hot = {
+export type THot = {
     _acceptedDependencies: object
     _declinedDependencies: object
     _selfAccepted: boolean
@@ -41,16 +24,11 @@ export type Hot = {
         [key: string]: () => any
     }
     active: boolean
-    accept?: Accept
+    accept: Accept
     decline?: () => any
-    dispose?: () => any
-    addDisposeHandler?: () => any
+    dispose?: (callback, isTwoSideRelation: boolean) => any
     removeDisposeHandler?: () => any
     requireAccept?: () => any
     addChildrenDisposeDependency?: (dep: string, handler: any) => any
     [key: string]: any
 }
-
-// export = globalThis
-// export default globalThis
-// export as namespace globalThis

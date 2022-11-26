@@ -27,8 +27,8 @@ const setDisposeHandlerInParents = (module, handler) => {
     moduleHot.addChildrenDisposeDependency?.(moduleFilename, handler)
 }
 export default ({ hot, module }) =>
-    async (handler, isTwoSideRelation?) => {
-        if (isTwoSideRelation) {
+    async (handler, isTwoSidesListening?) => {
+        if (isTwoSidesListening) {
             await new Promise(resolve => setTimeout(resolve, 0))
             setDisposeHandlerInParents(module, handler)
         }

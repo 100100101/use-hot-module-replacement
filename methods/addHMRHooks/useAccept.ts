@@ -1,6 +1,6 @@
-import { Accept } from '../../types'
+import { TAccept } from '../../types'
 export default ({ hot, resolve }) => {
-    const accept: Accept = (dep, callback) => {
+    const accept: TAccept = (dep, callback) => {
         if (typeof dep === 'undefined') hot._selfAccepted = true
         else if (typeof dep === 'function') hot._selfAccepted = dep
         else if (typeof dep === 'object')

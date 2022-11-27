@@ -1,6 +1,5 @@
 // declare const Module: any
 declare const module: any
-import './types'
 import { UseHotModuleReplacementOptions } from './types'
 
 const Module = require('node:module')

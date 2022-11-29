@@ -1,5 +1,9 @@
 // module is changed, which dependency needs to be reloaded?
 export default parents => module => {
+    // if (!module.hot) {
+    //     return
+    // }
+
     const paths: any = []
     const pathsToAcceptingModules = (path, root) => {
         const rootFilename = root.filename

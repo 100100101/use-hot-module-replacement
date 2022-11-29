@@ -16,12 +16,12 @@ export default (options: UseHotModuleReplacementOptions) => {
     // TODO: use proxy here instead of just monkey-patching so all future extensions are tracked automatically
     const savedExtensions = Module._extensions
     const _extensions = {}
-    Object.keys(savedExtensions).forEach(extension => {
+    for (const extension of Object.keys(savedExtensions)) {
         _extensions[extension] = function (module, filename) {
             addHMRHooks(module)
             savedExtensions[extension](module, filename)
         }
-    })
+    }
     Module._extensions = _extensions
     const parents = {}
     const collectDependencies = useCollectDependencies(parents)
@@ -40,6 +40,7 @@ export default (options: UseHotModuleReplacementOptions) => {
         ignore,
         parents,
         startWatching,
+        addHMRHooks,
     })
     // monkey-patch require
     // const originalRequire = Module.prototype.require

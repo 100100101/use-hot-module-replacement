@@ -4,6 +4,7 @@ const findRootAcceptedModule = (module: any) => {
     let currentCheckModule = module
     for (;;) {
         const moduleHot: THot = currentCheckModule.hot
+        if (!moduleHot) break
         const moduleAcceptedDependencies = moduleHot._acceptedDependencies
         if (!moduleAcceptedDependencies) break
         const hasAcceptedDependencies = !!Object.keys(

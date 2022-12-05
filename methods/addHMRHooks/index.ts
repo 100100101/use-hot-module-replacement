@@ -10,7 +10,7 @@ export default module => {
     const resolve = name => {
         return Module._resolveFilename(name, module)
     }
-    const hot: THot = {
+    const hot = {
         _acceptedDependencies: {},
         _declinedDependencies: {},
         _selfAccepted: false,
@@ -40,7 +40,7 @@ export default module => {
           //inherit from previous dispose call
           data: hotCurrentModuleData[moduleId]
         */
-    } as THot
+    } as Partial<THot>
     const accept = useAccept({ hot, resolve })
     const dispose = useDispose({ hot, module })
     Object.assign(hot, {

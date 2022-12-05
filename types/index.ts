@@ -26,7 +26,7 @@ export type THot = {
     active: boolean
     accept: TAccept
     decline?: () => any
-    dispose?: (callback, isTwoSideListening: boolean) => void
+    dispose: (callback, isTwoSideListening: boolean) => void
     removeDisposeHandler?: () => void
     requireAccept?: () => void
     addChildrenDisposeDependency?: (dep: string, handler: any) => void

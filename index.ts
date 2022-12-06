@@ -3,11 +3,11 @@ declare const module: any
 import { UseHotModuleReplacementOptions } from './types'
 
 const Module = require('node:module')
-import addHMRHooks from './methods/addHMRHooks'
-import useCollectDependencies from './methods/useCollectDependencies'
-import useIgnore from './methods/useIgnore'
-import useStartWatching from './methods/useStartWatching'
-import use_load from './methods/use_load'
+import addHMRHooks from './src/addHMRHooks'
+import useCollectDependencies from './src/useCollectDependencies'
+import useIgnore from './src/useIgnore'
+import useStartWatching from './src/useStartWatching'
+import use_load from './src/use_load'
 const defaultOptions = {
     doubleSaveDiscardMs: 600,
 }

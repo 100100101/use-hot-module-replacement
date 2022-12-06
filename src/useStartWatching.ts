@@ -34,7 +34,9 @@ export default ({
         if (ignore(path)) return
         if (watching[path]) return
 
-        const watchHandler = async (eventType, filename) => {
+        const watchCallback = async (eventType, filename) => {
+            // console.warn('watchCallback:', eventType, filename)
+
             if (doubleSaveDiscardMs > -1) {
                 if (triggeredPaths.includes(path)) {
                     isDiscard = true
@@ -114,6 +116,6 @@ export default ({
                 }
             }
         }
-        watching[path] = nodeWatch(path, { persistent: false }, watchHandler)
+        watching[path] = nodeWatch(path, { persistent: false }, watchCallback)
     }
 }

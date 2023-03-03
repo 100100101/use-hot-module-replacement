@@ -1,19 +1,19 @@
-// type TOptions = {
-//     ignoreRule?: RegExp | ((path: string) => boolean)
-// }
-// export interface IHotModuleReplacement {
-//     patchLoad: any
-//     setExtensionsProxy: any
-//     startWatching: any
-//     collectDependencies: any
-//     setStartHMRHooks: any
-//     setHMRHooks: any
-//     checkIsIgnorePath: any
-//     watching: any
-//     parents: any
-//     defaultOptions: TOptions = {}
-//     settings: TOptions = {}
-// }
+type TOptions = {
+    ignoreRule?: RegExp | ((path: string) => boolean)
+}
+export interface IHotModuleReplacement {
+    patchLoad: any
+    setExtensionsProxy: any
+    startWatching: any
+    collectDependencies: any
+    setStartHMRHooks: any
+    setHMRHooks: any
+    checkIsIgnorePath: any
+    watching: any
+    parents: any
+    defaultOptions: TOptions = {}
+    settings: TOptions = {}
+}
 // ===========
 export type TAcceptCallback = () => void
 // export type TAccept = (modulePath: string, callback: TAcceptCallback) => void

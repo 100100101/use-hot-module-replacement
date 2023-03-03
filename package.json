@@ -4,9 +4,6 @@
     "description": "Hot module replacement for Node.js",
     "main": "./index.js",
     "types": "./lib/index.d.ts",
-    "scripts": {
-        "test": "mocha -t 5000 ./test/integration/*.js"
-    },
     "keywords": [],
     "author": "",
     "license": "ISC",

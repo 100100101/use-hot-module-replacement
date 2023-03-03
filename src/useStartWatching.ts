@@ -1,5 +1,6 @@
 import nodeWatch from 'node-watch'
 import { THot } from '../types'
+import checkIsDoubleSaveDiscard from './checkIsDoubleSaveDiscard'
 const Module = require('node:module')
 
 // import { watch } from 'node:fs/promises'
@@ -24,38 +25,30 @@ export default ({
     watching,
     collectDependencies,
     ignore,
-    addHMRHooks,
+    setHMRHooks,
     parents,
     doubleSaveDiscardMs,
 }) => {
-    let isDiscard = false
-    const triggeredPaths: string[] = []
     return async path => {
         if (ignore(path)) return
         if (watching[path]) return
+        console.log('path:', path)
 
         const watchCallback = async (eventType, filename) => {
-            // console.warn('watchCallback:', eventType, filename)
+            console.warn('use-hot-module-replacement:', eventType, filename)
 
             if (doubleSaveDiscardMs > -1) {
-                if (triggeredPaths.includes(path)) {
-                    isDiscard = true
-                    return
-                }
-                triggeredPaths.push(path)
-                await new Promise(resolve =>
-                    setTimeout(resolve, doubleSaveDiscardMs)
+                const isDoubleSaveDiscard = await checkIsDoubleSaveDiscard(
+                    path,
+                    doubleSaveDiscardMs
                 )
-                triggeredPaths.splice(triggeredPaths.indexOf(path), 1)
-                if (triggeredPaths.length) return
-                if (isDiscard) {
-                    isDiscard = false
-                    return
-                }
+                if (isDoubleSaveDiscard) return
             }
 
             const oldModule = require.cache[path]
             if (!oldModule) return
+
+            console.log('oldModule:', oldModule)
 
             const deps = collectDependencies(oldModule)
             const reloaded = {}
@@ -77,7 +70,7 @@ export default ({
                         await disposeHandler()
                     }
                     const newModule = new Module(path, oldModule.parent)
-                    addHMRHooks(newModule)
+                    setHMRHooks(newModule)
 
                     try {
                         newModule.load(path)

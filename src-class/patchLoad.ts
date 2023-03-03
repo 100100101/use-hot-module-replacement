@@ -1,32 +1,27 @@
+import { IHotModuleReplacement } from '../types'
+import checkIsIgnorePath from './checkIsIgnorePath'
 const Module = require('node:module')
-
-export default ({ ignore, parents, startWatching, setHMRHooks }) => {
-    const originalLoad = Module._load
+const originalLoad = Module._load
+export default function (this: IHotModuleReplacement) {
     Module._load = (request, parent, isMain) => {
         const requirePath = Module._resolveFilename(request, parent)
 
-        if (ignore(requirePath)) {
+        if (this.checkIsIgnorePath(requirePath)) {
             return originalLoad(request, parent, isMain)
         }
-        const cachedModule = Module._cache[requirePath]
 
-        if (cachedModule) {
-            setHMRHooks(cachedModule)
-        }
-
-        startWatching(requirePath)
+        this.startWatching(requirePath)
         const parentPath = parent && parent.filename
-        const myParents = parents[requirePath]
+        const myParents = this.parents[requirePath]
         if (parentPath) {
             if (!myParents) {
-                const p = {}
+                var p = {}
                 p[parentPath] = parent
-                parents[requirePath] = p
+                this.parents[requirePath] = p
             } else {
                 myParents[parentPath] = parent
             }
         }
-
         return originalLoad(request, parent, isMain)
     }
 }

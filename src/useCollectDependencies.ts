@@ -2,19 +2,10 @@ const collectDependencies = ({ module, parents }) => {
     const paths: any = []
     const pathsToAcceptingModules = (path, root) => {
         const rootFilename = root.filename
-        console.log(
-            'pathsToAcceptingModules path, root, rootFilename:',
-            path,
-            root,
-            rootFilename,
-            parents
-        )
 
         if (path.includes(rootFilename)) return
 
         const requiredMe = parents[rootFilename]
-
-        console.log('requiredMe:,', parents, rootFilename)
 
         if (module.hot._selfAccepted) {
             const pathConcat = path.concat(rootFilename)
@@ -30,11 +21,6 @@ const collectDependencies = ({ module, parents }) => {
             // if (!parentHotRuntime) {
             //     continue
             // }
-            console.log(
-                'moduleForReloading:',
-                moduleForReloading,
-                parentHotRuntime
-            )
 
             if (parentHotRuntime._acceptedDependencies[rootFilename]) {
                 const pathConcat = path.concat(rootFilename)
@@ -49,7 +35,6 @@ const collectDependencies = ({ module, parents }) => {
         }
     }
     pathsToAcceptingModules(paths, module)
-    console.log('pathspathspathspathspaths:', paths)
 
     return paths
 }

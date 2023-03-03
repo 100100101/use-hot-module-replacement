@@ -32,10 +32,9 @@ export default ({
     return async path => {
         if (ignore(path)) return
         if (watching[path]) return
-        console.log('path:', path)
 
         const watchCallback = async (eventType, filename) => {
-            console.warn('use-hot-module-replacement:', eventType, filename)
+            // console.log(`\x1b[45m${eventType} ${filename}\x1b[0m\n`)
 
             if (doubleSaveDiscardMs > -1) {
                 const isDoubleSaveDiscard = await checkIsDoubleSaveDiscard(
@@ -47,8 +46,6 @@ export default ({
 
             const oldModule = require.cache[path]
             if (!oldModule) return
-
-            console.log('oldModule:', oldModule)
 
             const deps = collectDependencies(oldModule)
             const reloaded = {}

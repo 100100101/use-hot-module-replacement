@@ -29,7 +29,6 @@ export default module => {
         requireAccept: useRequireAccept({ accept }),
         addChildrenDisposeDependency: useAddChildrenDisposeDependency({ hot }),
     })
-    console.log('module:', module)
 
     module.hot = hot
 }

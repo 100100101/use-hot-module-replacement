@@ -25,7 +25,9 @@ export default (options: UseHotModuleReplacementOptions) => {
                     requestedExtension = requestedRealExtension
                 }
             }
-
+            if (!requestedExtension) {
+                return requestedExtension
+            }
             return function (module, filename) {
                 setHMRHooks(module)
                 requestedExtension(module, filename)

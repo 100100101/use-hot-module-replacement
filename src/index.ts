@@ -2,6 +2,7 @@
 import { UseHotModuleReplacementOptions } from '../types'
 
 const Module = require('node:module')
+import path from 'node:path'
 import setHMRHooks from './setHMRHooks'
 import useCollectDependencies from './useCollectDependencies'
 import useIgnore from './useIgnore'
@@ -15,7 +16,16 @@ export default (options: UseHotModuleReplacementOptions) => {
     const originalExtensions = Module._extensions
     Module._extensions = new Proxy(originalExtensions, {
         get(target, prop) {
-            const requestedExtension = target[prop]
+            let requestedExtension = target[prop]
+            if (!requestedExtension && typeof prop === 'string') {
+                const propParsed = path.parse(prop)
+                const realExt = propParsed.ext
+                const requestedRealExtension = target[realExt]
+                if (requestedRealExtension) {
+                    requestedExtension = requestedRealExtension
+                }
+            }
+
             return function (module, filename) {
                 setHMRHooks(module)
                 requestedExtension(module, filename)

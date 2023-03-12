@@ -3,19 +3,19 @@ lockfileVersion: 5.4
 specifiers:
   '@types/node': ^18.14.0
   node-watch: ^0.7.3
-  package-auto-tsc: git+https://github.com/JSerGit/package-auto-tsc.git
+  package-auto-tsc: git+https://github.com/100100101/package-auto-tsc.git
   typescript: ^4.9.5
 
 dependencies:
-  '@types/node': 18.14.4
+  '@types/node': 18.15.0
   node-watch: 0.7.3
-  package-auto-tsc: github.com/JSerGit/package-auto-tsc/66693540a102ec488ebb4cdba105232ed1ae3d6b
+  package-auto-tsc: github.com/100100101/package-auto-tsc/f98f4386a43eab83a8abe5e89a0754dd27340831
   typescript: 4.9.5
 
 packages:
 
-  /@types/node/18.14.4:
-    resolution: {integrity: sha512-VhCw7I7qO2X49+jaKcAUwi3rR+hbxT5VcYF493+Z5kMLI0DL568b7JI4IDJaxWFH0D/xwmGJNoXisyX+w7GH/g==}
+  /@types/node/18.15.0:
+    resolution: {integrity: sha512-z6nr0TTEOBGkzLGmbypWOGnpSpSIBorEhC4L+4HeQ2iezKCi4f77kyslRwvHeNitymGQ+oFyIWGP96l/DPSV9w==}
     dev: false
 
   /node-watch/0.7.3:
@@ -29,8 +29,8 @@ packages:
     hasBin: true
     dev: false
 
-  github.com/JSerGit/package-auto-tsc/66693540a102ec488ebb4cdba105232ed1ae3d6b:
-    resolution: {tarball: https://codeload.github.com/JSerGit/package-auto-tsc/tar.gz/66693540a102ec488ebb4cdba105232ed1ae3d6b}
+  github.com/100100101/package-auto-tsc/f98f4386a43eab83a8abe5e89a0754dd27340831:
+    resolution: {tarball: https://codeload.github.com/100100101/package-auto-tsc/tar.gz/f98f4386a43eab83a8abe5e89a0754dd27340831}
     name: package-auto-tsc
-    version: 1.0.0
+    version: 1.0.1
     dev: false

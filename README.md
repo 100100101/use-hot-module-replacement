@@ -13,7 +13,7 @@ This module tries to mimic [webpack HMR](https://webpack.js.org/api/hot-module-r
 
 ```js
   cd your-project-root/utils
-  git clone https://github.com/JSerGit/use-hot-module-replacement.git
+  git clone https://github.com/100100101/use-hot-module-replacement.git
 ```
 
 Add to your-project-root/package.json
